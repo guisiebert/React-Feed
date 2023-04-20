@@ -1,8 +1,9 @@
 import { Header } from './components/Header'
 import { Post } from './components/Post'
-import './global.css'
 import { Sidebar } from './components/Sidebar'
+
 import styles from './App.module.css'
+import './global.css'
 
 function App() {
 
@@ -12,7 +13,6 @@ function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <h1>Testing</h1>
           <Post 
             name="Gui Siebert"
             post="Hey gente"
