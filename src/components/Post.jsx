@@ -1,19 +1,24 @@
 import styles from './Post.module.css'
 import { Comment } from './Comment.jsx'
 
-export function Post(props) {
+// author: {name: "", avatarUrl: "", role: ""} 
+// publishedAt: Date
+// content: String
+
+
+export function Post({author, publishedAt}) {
     return (
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <img className={styles.avatar} src='https://github.com/guisiebert.png'/>
+                    <img className={styles.avatar} src={author.avatarUrl}/>
                     <div className={styles.authorInfo}>
-                        <strong>Diego Fernandes</strong>
-                        <span>Web Developer</span>
+                        <strong>{author.name}</strong>
+                        <span>{author.role}</span>
                     </div>
                 </div>
 
-                <time  dateTime='2023-04-20 08:50:50'>Publicado há 1h</time>
+                <time  dateTime='2023-04-20 08:50:50'>{publishedAt.toString()}</time>
             </header>
 
             <div className={styles.content}>
