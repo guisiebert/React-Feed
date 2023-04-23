@@ -1,12 +1,40 @@
 import styles from './Post.module.css'
 import { Comment } from './Comment.jsx'
+import { useState } from 'react'
 
 // author: {name: "", avatarUrl: "", role: ""} 
 // publishedAt: Date
 // content: String
 
 
-export function Post({author, publishedAt}) {
+export function Post({author, publishedAt, content}) {
+
+    const [comments, setComments] = useState([
+        "Oloco, parabéns"
+    ])
+
+    const [newCommentText, setNewCommentText] = useState('')
+
+    // Handle Submit
+    function handleSubmit(event) {
+        event.preventDefault() // pra evitar um reload da página
+        setComments([...comments, newCommentText  ]) // adiciona o comentário novo no fim da array de comments
+        setNewCommentText("")
+    }
+
+    // Handle Change
+    function handleChange() {
+        setNewCommentText(event.target.value)
+    }
+
+    // Handle Delete
+    function deleteComment(commentToDelete) {
+        const commentsWithoutDeletedOne = comments.filter( comment => {
+            return comment != commentToDelete
+        })
+        setComments(commentsWithoutDeletedOne)
+    }
+
     return (
         <article className={styles.post}>
             <header>
@@ -22,29 +50,31 @@ export function Post({author, publishedAt}) {
             </header>
 
             <div className={styles.content}>
-                <p>Fala galeraa 👋</p>
-                <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-                <p>👉<a href=''> jane.design/doctorcare</a></p>
-                <p>
-                    <a>#novoprojeto</a> {' '}
-                    <a>#nlw</a> {' '}
-                    <a>#rocketseat</a> {' '}
-                </p>
+                {content.map( line => line.type==="paragraph" ? <p key={line.content}>{line.content}</p> : <a key={line.content}>{line.content}</a>)}
             </div>
 
-            <form className={styles.commentForm}>
+            <form className={styles.commentForm} onSubmit={handleSubmit}>
                 <strong>Deixe seu feedback</strong>
                 
                 <textarea 
+                    name="comment"
                     placeholder='Deixe um comentário...'
+                    value={newCommentText}
+                    onChange={handleChange}
                 />
                 
-                <button type='submit'>Publicar</button>
+                {newCommentText && <button type='submit'>Publicar</button>}
             </form>
+
+
             <div className={styles.commentList}>
-                <Comment />
-                <Comment />
-                <Comment />
+                {comments.map(comment => {return (
+                    <Comment 
+                        content={comment}
+                        key={comment}
+                        onDeleteComment={deleteComment}
+                    />
+                )})}
 
             </div>
         </article>

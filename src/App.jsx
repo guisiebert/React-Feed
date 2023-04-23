@@ -28,9 +28,9 @@ const posts = [
           role: "CTO @ MyHouse"
       },
       content: [
-          {type: "paragraph", content: "Fala galeraa 👋" },
+          {type: "paragraph", content: "Muchachos lindos" },
           {type: "paragraph", content: "Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀" },
-          {type: "link", content: "jane.design/doctorcare" }
+          {type: "link", content: "wilson.com" }
       ],
       publishedAt: new Date('2023-04-21 05:23:23'),
   },
@@ -50,7 +50,7 @@ function App() {
               author={post.author} 
               content={post.content}
               publishedAt={post.publishedAt}
-              // key={post.id}
+              key={post.id}
             />
           )})}
         </main>
